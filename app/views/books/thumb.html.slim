@@ -1,0 +1,29 @@
+p#notice
+  = notice
+p
+  strong
+    | Name:
+  = @book.name
+p
+  strong
+    | Genre:
+  = @book.genre
+p
+  strong
+    | Regist at:
+  = @book.created_at
+p
+  strong
+    | Image:
+  /- if @book.image?
+  /  = image_tag @book.image.url
+.row
+  - @page.each do |file|
+    div class="col-xs-2 col-md-1"
+      a class="thumbnail"
+        = image_tag(file.page_image.url) 
+|  |
+= link_to 'Edit', edit_book_path(@book)
+|  | 
+= link_to 'Back', books_path
+

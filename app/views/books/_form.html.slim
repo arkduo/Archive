@@ -1,0 +1,28 @@
+= form_for(@book) do |f|
+  - if @book.errors.any?
+    #error_explanation
+      h2
+        = pluralize(@book.errors.count, "error")
+        |  prohibited this book from being saved:
+      ul
+        - @book.errors.full_messages.each do |message|
+          li
+            = message
+  .field
+    = f.label :name
+    br
+    = f.text_field :name
+  .field
+    = f.label :genre
+    br
+    = f.text_field :genre
+  .field
+    - if @book.zip?
+      .thumbnail
+        = image_tag @book.zip.url
+    = f.label :zip
+    br
+    = f.file_field :zip
+    = f.hidden_field :zip_cache
+  .actions
+    = f.submit
