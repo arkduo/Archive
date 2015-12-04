@@ -1,3 +1,5 @@
+= stylesheet_link_tag "tile.css"
+
 p#notice
   = notice
 p
@@ -17,13 +19,9 @@ p
     | Image:
   /- if @book.image?
   /  = image_tag @book.image.url
-.row
-  - @page.each do |file|
-    div class="col-xs-2 col-md-1"
-      a class="thumbnail"
-        = image_tag(file.page_image.url) 
-|  |
-= link_to 'Edit', edit_book_path(@book)
-|  | 
-= link_to 'Back', books_path
+div style="width:100%"
+  - @page.each_with_index do |file, i|
+    .Tile
+      = link_to image_tag(file.page_image.thumb.url), regist_thumb_path(@book.id, file.id), {:class => "thumbnail"}
+    - break if i == 9
 

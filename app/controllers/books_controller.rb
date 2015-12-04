@@ -48,8 +48,13 @@ class BooksController < ApplicationController
     # アップロードされたファイルの解凍
     # 一時的に解凍しておくフォルダの生成
     system('mkdir /home/adminer/muse/decomp')
-    # ZIPファイルの解凍
-    `unzip -jo "#{@book.zip.path}" -d /home/adminer/muse/decomp`
+    if /zip$/ =~ @book.zip.path
+      # ZIPファイルの解凍
+      `unzip -jo "#{@book.zip.path}" -d /home/adminer/muse/decomp`
+    else
+      # RARファイルの解凍
+      `unrar e -y "#{@book.zip.path}" /home/adminer/muse/decomp`
+    end
     path = `find /home/adminer/muse/decomp -type f -name "*.jpg" | sort -n`
     arr = path.split
     arr.sort_by do |f|
@@ -58,7 +63,6 @@ class BooksController < ApplicationController
     # 解凍したファイルをPageテーブルに保存
     num = 0
     arr.each do |file|
-      @page = Page.new(:book_id => @book.id)
       file = file.chomp
 
       # 見開き2ページの場合は2分割
@@ -70,27 +74,36 @@ class BooksController < ApplicationController
         parts << img.crop(Magick::NorthWestGravity, img.columns/2, img.rows).write(name.first + "_2." + name.last) # 右ページ
         
         parts.each do |part|
+          @page = Page.new(:book_id => @book.id)
           File.open(part.filename) do |f|
             num += 1
-            @page.page_name = part
             @page.page_image = f
           end
           @page.save
         end
       else # 縦長の場合:そのまま登録
+        @page = Page.new(:book_id => @book.id)
         File.open(file) do |f|
           num += 1
-          @page.page_name = file
           @page.page_image = f
         end
         @page.save
       end
     end
-    # `rm -rf /home/adminer/muse/decomp`
+    `rm -rf /home/adminer/muse/decomp`
     @book.total = num
     @book.save
   end
 
+  def regist_thumb
+    # サムネイルの登録
+    @thumb = Page.find_by(:id => params[:thumb])
+    @book = Book.find_by(:id => @thumb.book_id)
+    @book.thumb = @thumb.page_image.thumb.url
+    @book.save
+    redirect_to ({:action => 'show', :id => params[:id]}), :notice => 'Thumbnail was successfully registed.'
+
+  end
 
   # PATCH/PUT /books/1
   # PATCH/PUT /books/1.json

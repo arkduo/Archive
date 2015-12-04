@@ -19,7 +19,7 @@
   .field
     - if @book.zip?
       .thumbnail
-        = image_tag @book.zip.url
+        = image_tag @book.thumb
     = f.label :zip
     br
     = f.file_field :zip

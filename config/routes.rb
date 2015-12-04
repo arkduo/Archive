@@ -2,16 +2,14 @@ Rails.application.routes.draw do
   resources :books
   root :to => 'books#index'
   get '/books/:id/thumb' => 'books#thumb', as: 'thumb_book'
-  resources :books do
-    member do
-      get 'get_image'
-    end
-  end
-  resources :books do
-    member do
-      get 'get_thumb'
-    end
-  end
+  #get '/books' => 'books#regist_thumb', as: 'regist_thumb'
+  get '/books/:id/:thumb' => 'books#regist_thumb', as: 'regist_thumb'
+  #resources :books do
+  #  member do
+  #    get 'get_image'
+  #  end
+  #end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

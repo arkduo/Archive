@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150918162037) do
+ActiveRecord::Schema.define(version: 20151204091105) do
 
   create_table "books", force: :cascade do |t|
     t.string   "name"
@@ -20,12 +20,12 @@ ActiveRecord::Schema.define(version: 20150918162037) do
     t.integer  "total"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "thumb"
   end
 
   create_table "pages", force: :cascade do |t|
     t.integer  "book_id"
     t.string   "page_image"
-    t.string   "page_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

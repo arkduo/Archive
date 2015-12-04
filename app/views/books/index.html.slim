@@ -6,6 +6,8 @@ table
   thead
     tr
       th
+        | Thumbnail
+      th
         | Name
       th
         | Genre
@@ -15,6 +17,8 @@ table
   tbody
     - @books.each do |book|
       tr
+        td
+          = image_tag book.thumb
         td
           = book.name
         td
