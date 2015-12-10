@@ -9,9 +9,9 @@
           li
             = message
   .field
-    = f.label :name
+    = f.label :title
     br
-    = f.text_field :name
+    = f.text_field :title
   .field
     = f.label :genre
     br
@@ -24,5 +24,7 @@
     br
     = f.file_field :zip
     = f.hidden_field :zip_cache
+    - @book.serial_id = @series.to_i
+    = f.hidden_field :serial_id
   .actions
     = f.submit

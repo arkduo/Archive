@@ -3,14 +3,14 @@
 = javascript_include_tag "bootstrap-select.min.js"
 = stylesheet_link_tag "jquery.booklet.latest.css"
 = stylesheet_link_tag "bootstrap-select.min.css"
-= stylesheet_link_tag "style.css"
+= stylesheet_link_tag "booklet.css"
 
 p#notice
   = notice
 p
   strong
-    | Name:
-  = @book.name
+    | Title:
+  = @book.title
 p
   strong
     | Image:
@@ -25,19 +25,15 @@ p
     .b-load
       - @page.each do |file|
         .
-          = image_tag(file.page_image.url, :margin => 0, :width => "440px", :height => "640px", :padding => 0)
+          = image_tag(file.pict.url, :margin => 0, :width => "440px", :height => "640px", :padding => 0)
 a href="#" id="cover" auth="false" 表紙:なし
 |  | 
-/select class="selectpicker autopage" data-width="100px"
-  option value="0" 自動:オフ
-  option value="3000" 自動:オン(3秒)
-  option value="5000" 自動:オン(5秒)
-  option value="7000" 自動:オン(7秒)
-  option value="10000" 自動:オン(10秒)
 a href="#" id="auto" auth="false" 自動:オフ
 |  | 
+/a href="#" id="lock" flag="true" スクロール:可能
+/|  | 
 = link_to 'Edit', edit_book_path(@book)
 |  | 
-= link_to 'Back', books_path
+= link_to 'Back', serial_path(@serial.id)
 
-= javascript_include_tag "style.js"
+= javascript_include_tag "booklet.js"

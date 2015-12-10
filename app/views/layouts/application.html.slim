@@ -5,6 +5,10 @@ html
       | Manga Archives
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = javascript_include_tag 'jquery.tablesorter.js'
+    = stylesheet_link_tag 'table.css'
     = csrf_meta_tags
   body
     = yield
+    = javascript_include_tag 'table.js'
+    

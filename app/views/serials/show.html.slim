@@ -1,8 +1,8 @@
 p#notice
   = notice
 h1
-  | Manga Archives
-table#sort.tablesorter
+  = @serial.series
+table#sort.tablesrter
   thead
     tr
       th.col-md-1.col-sm-1
@@ -32,4 +32,6 @@ table#sort.tablesorter
         /td
           = link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' }
 br
+= link_to 'New Book', new_book_path(@serial.id)
+| | 
 = link_to 'Back', serials_path

@@ -83,6 +83,7 @@ $(function() {
     $mybook.booklet(pageNo);
   });
 
+  // 表紙の追加・削除
   $('#cover').click(function(e){
     var newPageHtml = "<div></div>";
     e.preventDefault();
@@ -94,9 +95,10 @@ $(function() {
       $(this).text("表紙:あり");
       $(this).attr('auth', "true");
       $mybook.booklet("add", "start", newPageHtml);
-    };
+    }
   });
 
+  // 自動ページめくり
   $('#auto').click(function(e){
     e.preventDefault();
     if($(this).attr('auth') == "true"){
@@ -107,21 +109,72 @@ $(function() {
       $(this).text("自動:オン");
       $(this).attr('auth', "true");
       $mybook.booklet("option", "auto", true);
-    };
-  });
-  
-  $(window).on('load', function(e){
-    $('.selectpicker').selectpicker({
-      'selectedText': 'cat'
-    });
-  });
-
-  $('.autopage').on('change', function(e){
-    e.preventDefault();
-    if($(this).attr('value') == "3000"){
-      $mybooklet("option", "auto", true);
     }
   });
+
+  // スクロールのロック
+  $('#lock').click(function(){
+    if($(this).attr('flag') == "true"){
+      $(window).on('touchmove.noScroll', function(e){
+        e.preventDefault();
+        $(this).text("スクロール:禁止");
+        $(this).attr('flag', "false");
+      });
+    }else{
+      $(window).off('.noScroll');
+      $(this).text("スクロール:可能");
+      $(this).attr('flag', "true");
+    }
+  });
+  
+  // スワイプ動作の対応
+  window.addEventListener("load", function(event) {
+    var touchStartX;
+    var touchStartY;
+    var touchMoveX;
+    var touchMoveY;
+ 
+    // 開始時
+    window.addEventListener("touchstart", function(event) {
+    //event.preventDefault();
+    // 座標の取得
+    touchStartX = event.touches[0].pageX;
+    touchStartY = event.touches[0].pageY;
+    }, false);
+ 
+    // 移動時
+    window.addEventListener("touchmove", function(event) {
+    //event.preventDefault();
+    // 座標の取得
+    touchMoveX = event.changedTouches[0].pageX;
+    touchMoveY = event.changedTouches[0].pageY;
+    }, false);
+ 
+    // 終了時
+    window.addEventListener("touchend", function(event) {
+      /*if (touchStartY > touchMoveY) {
+        if (touchStartY > (touchMoveY +50)) {
+          window.scrollTo(touchMoveX, touchMoveY);
+        }
+      } else if (touchStartY < touchMoveY) {
+        if ((touchStartY + 50) < touchMoveY) {
+          window.scrollTo(touchStartX, touchStartY);
+        }
+      }*/
+      // 移動量の判定
+      if (touchStartX > touchMoveX) {
+        if (touchStartX > (touchMoveX + 50)) {
+          //右から左に指が移動した場合
+          $mybook.booklet("next");
+        }
+      } else if (touchStartX < touchMoveX) {
+        if ((touchStartX + 50) < touchMoveX) {
+          //左から右に指が移動した場合
+          $mybook.booklet("prev");
+        }
+      }
+    }, false);
+  }, false);
 });
 
 

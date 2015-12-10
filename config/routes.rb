@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  resources :books
-  root :to => 'books#index'
+  resources :books, :except => [:new]
+  resources :serials
+  root :to => 'serials#index'
+  get 'books/:id/new' => 'books#new', as:'new_book'
   get '/books/:id/thumb' => 'books#thumb', as: 'thumb_book'
   #get '/books' => 'books#regist_thumb', as: 'regist_thumb'
   get '/books/:id/:thumb' => 'books#regist_thumb', as: 'regist_thumb'

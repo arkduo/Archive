@@ -2,26 +2,17 @@
 
 p#notice
   = notice
+h3
+  | choose thunmbnail
 p
   strong
-    | Name:
-  = @book.name
-p
-  strong
-    | Genre:
-  = @book.genre
-p
-  strong
-    | Regist at:
-  = @book.created_at
-p
-  strong
-    | Image:
+    | Title:
+  = @book.title
   /- if @book.image?
   /  = image_tag @book.image.url
-div style="width:100%"
+. style="width:100%"
   - @page.each_with_index do |file, i|
     .Tile
-      = link_to image_tag(file.page_image.thumb.url), regist_thumb_path(@book.id, file.id), {:class => "thumbnail"}
+      = link_to image_tag(file.pict.thumb.url), regist_thumb_path(@book.id, file.id), {:class => "thumbnail"}
     - break if i == 9
 

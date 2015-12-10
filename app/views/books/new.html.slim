@@ -1,4 +1,5 @@
 h1
   | New Book
+/= render 'form', locals: {conetnts: @series}
 = render 'form'
 = link_to 'Back', books_path

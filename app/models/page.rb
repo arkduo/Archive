@@ -1,3 +1,3 @@
 class Page < ActiveRecord::Base
-  mount_uploader :page_image, PageImageUploader
+  mount_uploader :pict, PictUploader
 end

@@ -1,0 +1,15 @@
+p#notice
+  = notice
+p
+  strong
+    | Series:
+  = @serial.series
+p
+  strong
+    | Image:
+  /- if @serial.image?
+  /  = image_tag @serial.image.url
+|  | 
+= link_to 'Edit', edit_serial_path(@serial)
+|  | 
+= link_to 'Back', serials_path
