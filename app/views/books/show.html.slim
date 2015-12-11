@@ -34,6 +34,8 @@ a href="#" id="auto" auth="false" 自動:オフ
 /|  | 
 = link_to 'Edit', edit_book_path(@book)
 |  | 
+= link_to 'Destory', book_path(@book), method: :delete, data: { confirm: 'Are you sure?' }
+|  | 
 = link_to 'Back', serial_path(@serial.id)
 
 = javascript_include_tag "booklet.js"

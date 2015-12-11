@@ -1,7 +1,13 @@
+th{
+  text-align:center;
+}
 tr[data-link]{
   cursor:hand;
   cursor:pointer;
 }
 tr[data-link]:hover{
   background-color:#696969;
+}
+td{
+  text-align:center;
 }

@@ -56,7 +56,7 @@ class BooksController < ApplicationController
       # RARファイルの解凍
       `unrar e -y "#{@book.zip.path}" #{Dir.home}/muse/decomp`
     end
-    path = `find #{Dir.home}/muse/decomp -type f -name "*.jpg" | sort -n`
+    path = `find #{Dir.home}/muse/decomp -type f -iname "*.jpg" -or -type f -iname "*.png" | sort -n`
     arr = path.split
     arr.sort_by do |f|
       f.scan(/[\d]+/).last
@@ -176,8 +176,10 @@ class BooksController < ApplicationController
     end
     # シリーズ用サムネの更新
     @serial = Serial.find_by(:id => series)
-    @serial.thumb = Book.where(:serial_id => series).last.thumb
-    @serial.save
+    if Book.where(:serial_id => series).last?
+      @serial.thumb = Book.where(:serial_id => series).last.thumb
+      @serial.save
+    end
   end
 
   private

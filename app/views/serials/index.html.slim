@@ -2,6 +2,11 @@ p#notice
   = notice
 h1
   | Manga Archives
+= link_to books_path, :class => 'btn btn-primary' do
+  | Show ALL
+  i.icon-plus
+br
+br
 table#sort.tablesorter
   thead
     tr
@@ -14,7 +19,7 @@ table#sort.tablesorter
       th.col-md-3.col-sm-2
         | Regist at
   tbody
-    tr[data-link="#{books_path}"]
+    /tr[data-link="#{books_path}"]
       td
       td
         | All
