@@ -56,5 +56,7 @@ group :development, :test do
   gem 'rubyzip',  "~> 1.1", require: 'zip'
 
   gem 'pry-rails'
+
+  gem 'jquery-tablesorter'
 end
 

@@ -2,12 +2,12 @@ p#notice
   = notice
 h1
   | Manga Archives
-= link_to books_path, :class => 'btn btn-primary' do
+= link_to books_path, :class => 'btn btn-info' do
   | Show ALL
   i.icon-plus
 br
 br
-table#sort.tablesorter
+table#sort.table.table-striped.table-hover.tablesorter
   thead
     tr
       th.col-md-1.col-sm-1
@@ -17,17 +17,8 @@ table#sort.tablesorter
       th.col-md-1.col-sm-1
         | Volume
       th.col-md-3.col-sm-2
-        | Regist at
+        | Register at
   tbody
-    /tr[data-link="#{books_path}"]
-      td
-      td
-        | All
-      td
-        | 全
-        = @all
-        | 巻
-      td
     - @serials.each do |serial|
       tr[data-link="#{serial_path(serial)}"]
         td
@@ -39,7 +30,8 @@ table#sort.tablesorter
           = serial.volume
           | 巻
         td
-          = serial.created_at.strftime('%Y年%m月%d日 %H:%M')
+          = Book.find_by(:serial_id => serial.id).created_at.strftime('%Y年%m月%d日 %H:%M')
+          /= serial.created_at.strftime('%Y年%m月%d日 %H:%M')
         /td
           = link_to 'Show', serial
         /td

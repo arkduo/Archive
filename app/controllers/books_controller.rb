@@ -176,10 +176,11 @@ class BooksController < ApplicationController
     end
     # シリーズ用サムネの更新
     @serial = Serial.find_by(:id => series)
-    if Book.where(:serial_id => series).last?
+    @serial.volume -= 1
+    if Book.where(:serial_id => series).last
       @serial.thumb = Book.where(:serial_id => series).last.thumb
-      @serial.save
     end
+    @serial.save
   end
 
   private

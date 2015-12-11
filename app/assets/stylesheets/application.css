@@ -12,6 +12,8 @@
  *
  *
  *= require_self
- *= require cyborg/loader
- *= require cyborg/bootswatch
+ *= require superhero/loader
+ *= require superhero/bootswatch
+ *= require jquery-tablesorter/theme.dark
+ *= require jquery-tablesorter/addons/pager/jquery.tablesorter.pager
  */

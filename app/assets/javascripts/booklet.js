@@ -9,70 +9,81 @@ $(function() {
   
   //右開の場合とか。
   var startPage = $(".b-load div").size();
+  
+  var h = 0;
+  $(window).on('load resize', function(){
+    // ウィンドウサイズに画像を合わせる
+    h = $(window).height() * 0.9;
+    $('img').attr('width', (h*1.3)/2);
+    $('img').attr('height', h);
 
-  //preload all the images in the book,
-  //and then call the booklet plugin
+    //preload all the images in the book,
+    //and then call the booklet plugin
 
-  $mybook_images.each(function(){
-    var $img  = $(this);
-    var source  = $img.attr('src');
-    $('<img/>').load(function(){
-      ++loaded;
-      if(loaded == cnt_images % 10){
-        $loading.hide();
-        $bttn_next.show();
-        $bttn_prev.show();
-        $mybook.show().booklet({
-          name:               null,
-          width:              880,
-          height:             640,
-          speed:              300,
-          direction:          'RTL',
-          startingPage:       startPage,
-          easing:             'easeInOutQuad',
-          easeIn:             'easeInQuad',
-          easeOut:            'easeOutQuad',
-
-          closed:             false,
-          closedFrontTitle:   null,
-          closedFrontChapter: null,
-          closedBackTitle:    null,
-          closedBackChapter:  null,
-          covers:             false,
-
-          pagePadding:        0,
-          pageNumbers:        false,
-
-          hovers:             false,
-          overlays:           false,
-          tabs:               false,
-          tabWidth:           60,
-          tabHeight:          20,
-          arrows:             false,
-          cursor:             'pointer',
-
-          hash:               false,
-          keyboard:           true,
-          next:               $bttn_next,
-          prev:               $bttn_prev,
-          auto:               false,
-          delay:              3000,
-
-          menu:               null,
-          pageSelector:       false,
-          chapterSelector:    true,
-
-          shadows:            true,
-          shadowTopFwdWidth:  166,
-          shadowTopBackWidth: 166,
-          shadowBtmWidth:     50,
-
-          before:             function(){},
-          after:              function(){}
-        });
-        // Cufon.refresh();
-      }
-    }).attr('src',source);
+    $mybook_images.each(function(){
+      var $img  = $(this);
+      var source  = $img.attr('src');
+      $('<img/>').load(function(){
+        ++loaded;
+        if(loaded == cnt_images % 10){
+          $loading.hide();
+          $bttn_next.show();
+          $bttn_prev.show();
+          $mybook.show().booklet({
+            name:               null,
+            //width:              880,
+            //height:             640,
+            width:              h * 1.3,
+            height:             h,
+            speed:              300,
+            direction:          'RTL',
+            startingPage:       startPage,
+            easing:             'easeInOutQuad',
+            easeIn:             'easeInQuad',
+            easeOut:            'easeOutQuad',
+  
+            closed:             false,
+            closedFrontTitle:   null,
+            closedFrontChapter: null,
+            closedBackTitle:    null,
+            closedBackChapter:  null,
+            covers:             false,
+  
+            pagePadding:        0,
+            pageNumbers:        false,
+  
+            hovers:             false,
+            overlays:           false,
+            tabs:               false,
+            tabWidth:           60,
+            tabHeight:          20,
+            arrows:             false,
+            cursor:             'pointer',
+  
+            hash:               false,
+            keyboard:           true,
+            next:               $bttn_next,
+            prev:               $bttn_prev,
+            auto:               false,
+            delay:              3000,
+  
+            menu:               null,
+            pageSelector:       false,
+            chapterSelector:    true,
+  
+            shadows:            true,
+            shadowTopFwdWidth:  166,
+            shadowTopBackWidth: 166,
+            shadowBtmWidth:     50,
+  
+            before:             function(){},
+            after:              function(){}
+          });
+          // Cufon.refresh();
+        }
+      }).attr('src',source);
+    });
+  
   });
       
   $("a.toppage").attr('data-page',startPage);
@@ -86,6 +97,7 @@ $(function() {
   // 表紙の追加・削除
   $('#cover').click(function(e){
     var newPageHtml = "<div></div>";
+    $()
     e.preventDefault();
     if($(this).attr('auth') == "true"){
       $(this).text("表紙:なし");
@@ -152,15 +164,6 @@ $(function() {
  
     // 終了時
     window.addEventListener("touchend", function(event) {
-      /*if (touchStartY > touchMoveY) {
-        if (touchStartY > (touchMoveY +50)) {
-          window.scrollTo(touchMoveX, touchMoveY);
-        }
-      } else if (touchStartY < touchMoveY) {
-        if ((touchStartY + 50) < touchMoveY) {
-          window.scrollTo(touchStartX, touchStartY);
-        }
-      }*/
       // 移動量の判定
       if (touchStartX > touchMoveX) {
         if (touchStartX > (touchMoveX + 50)) {
@@ -175,6 +178,7 @@ $(function() {
       }
     }, false);
   }, false);
+
 });
 
 

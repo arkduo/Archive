@@ -11,26 +11,21 @@ p
   strong
     | Title:
   = @book.title
-p
-  strong
-    | Image:
-  /- if @book.image?
-  /  = image_tag @book.image.url
 .book_wapper
-  a id="next_page_button"
-  a id="prev_page_button"
-  #loading class="loading"
+  /a#next_page_button
+  /a#prev_page_button
+  #loading.loading
     | Loading ...
   #mybook style="display: none"
     .b-load
       - @page.each do |file|
         .
-          = image_tag(file.pict.url, :margin => 0, :width => "440px", :height => "640px", :padding => 0)
-a href="#" id="cover" auth="false" 表紙:なし
+          = image_tag(file.pict.url, :margin => 0, :padding => 0)
+a#cover href="#" auth="false" 表紙:なし
 |  | 
-a href="#" id="auto" auth="false" 自動:オフ
+a#auto href="#" auth="false" 自動:オフ
 |  | 
-/a href="#" id="lock" flag="true" スクロール:可能
+/a#lock href="#" flag="true" スクロール:可能
 /|  | 
 = link_to 'Edit', edit_book_path(@book)
 |  | 

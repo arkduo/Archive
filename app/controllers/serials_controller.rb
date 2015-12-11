@@ -4,7 +4,6 @@ class SerialsController < ApplicationController
   # GET /serials
   # GET /serials.json
   def index
-    @all = Book.all.count
     @serials = Serial.all
   end
 

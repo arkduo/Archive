@@ -13,5 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require cyborg/loader
-//= require cyborg/bootswatch
+//= require superhero/loader
+//= require superhero/bootswatch
+//= require jquery-tablesorter
