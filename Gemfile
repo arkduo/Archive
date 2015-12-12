@@ -42,21 +42,25 @@ group :development, :test do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 
+  # スリム
   gem 'slim-rails'
-  
+  # レイアウト用
   gem 'twitter-bootswatch-rails', '~> 3.1.1'
   gem 'twitter-bootswatch-rails-helpers'
   gem 'execjs'
   gem 'less-rails'
   gem 'therubyracer'
-
+  # アップロード・画像加工
   gem 'rmagick'
   gem 'carrierwave'
-
+  # ZIP解凍
   gem 'rubyzip',  "~> 1.1", require: 'zip'
-
+  # デバッグ
   gem 'pry-rails'
-
+  # テーブルソート
   gem 'jquery-tablesorter'
+  # スライダー
+  gem 'jquery-ui-rails'
+  #gem 'touchpunch-rails'
 end
 

@@ -11,6 +11,17 @@ p
   strong
     | Title:
   = @book.title
+= link_to 'Edit', edit_book_path(@book)
+|  | 
+= link_to 'Destory', book_path(@book), method: :delete, data: { confirm: 'Are you sure?' }
+|  | 
+= link_to 'Back', serial_path(@serial.id)
+|  | 
+a#cover href="#" auth="false" 表紙:なし
+|  | 
+a#auto href="#" auth="false" 自動:オフ
+/|  | 
+/a#lock href="#" flag="true" スクロール:可能
 .book_wapper
   /a#next_page_button
   /a#prev_page_button
@@ -21,16 +32,6 @@ p
       - @page.each do |file|
         .
           = image_tag(file.pict.url, :margin => 0, :padding => 0)
-a#cover href="#" auth="false" 表紙:なし
-|  | 
-a#auto href="#" auth="false" 自動:オフ
-|  | 
-/a#lock href="#" flag="true" スクロール:可能
-/|  | 
-= link_to 'Edit', edit_book_path(@book)
-|  | 
-= link_to 'Destory', book_path(@book), method: :delete, data: { confirm: 'Are you sure?' }
-|  | 
-= link_to 'Back', serial_path(@serial.id)
+#slider
 
 = javascript_include_tag "booklet.js"

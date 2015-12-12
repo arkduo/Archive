@@ -16,3 +16,5 @@
 //= require superhero/loader
 //= require superhero/bootswatch
 //= require jquery-tablesorter
+//= require jquery-ui
+//= require jquery.ui.touch-punch

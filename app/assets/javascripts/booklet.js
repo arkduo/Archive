@@ -13,7 +13,7 @@ $(function() {
   var h = 0;
   $(window).on('load resize', function(){
     // ウィンドウサイズに画像を合わせる
-    h = $(window).height() * 0.9;
+    h = $(window).height() * 0.88;
     $('img').attr('width', (h*1.3)/2);
     $('img').attr('height', h);
 
@@ -52,6 +52,7 @@ $(function() {
             pagePadding:        0,
             pageNumbers:        false,
   
+            manual:             false,
             hovers:             false,
             overlays:           false,
             tabs:               false,
@@ -77,23 +78,21 @@ $(function() {
             shadowBtmWidth:     50,
   
             before:             function(){},
-            after:              function(){}
+            after:              function(){},
+            // スライダーのつまみを同期
+            change: function(e, data){
+              $('#slider').slider({ value: data.index});
+            }
           });
           // Cufon.refresh();
         }
       }).attr('src',source);
     });
+    $mybook.booklet("option", "width", (h*1.3));
+    $mybook.booklet("option", "height", h);
   
   });
       
-  $("a.toppage").attr('data-page',startPage);
-  //ページネーション          
-  $("a.gopage").click(function(){
-    var pageNo = $(this).attr('data-page');
-    pageNo-=0;//マイナスゼロをして数値型に変換
-    $mybook.booklet(pageNo);
-  });
-
   // 表紙の追加・削除
   $('#cover').click(function(e){
     var newPageHtml = "<div></div>";
@@ -179,6 +178,16 @@ $(function() {
     }, false);
   }, false);
 
+  // スライダー 
+  $('#slider').slider({
+    min: 0,
+    max: (cnt_images-1),
+    step: 2,
+    value: (cnt_images-1),
+    change: function(e, ui) {
+      $mybook.booklet((cnt_images-1)-ui.value);
+    },
+  });
 });
 
 
