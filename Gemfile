@@ -61,6 +61,8 @@ group :development, :test do
   gem 'jquery-tablesorter'
   # スライダー
   gem 'jquery-ui-rails'
-  #gem 'touchpunch-rails'
+  gem 'touchpunch-rails'
+  # IP制限
+  gem 'alpaca'
 end
 

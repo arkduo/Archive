@@ -1,0 +1,9 @@
+# The defaults below are reserved IPv4 and IPv6 addresses used for testing.
+# Replace the IP addresses in this configuration file with your own.
+
+whitelist:
+  - 192.168.0.0/29
+  - 133.92.148.0/15
+blacklist:
+  - 0.0.0.0
+default: deny

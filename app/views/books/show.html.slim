@@ -22,6 +22,7 @@ a#cover href="#" auth="false" 表紙:なし
 a#auto href="#" auth="false" 自動:オフ
 /|  | 
 /a#lock href="#" flag="true" スクロール:可能
+#sliderval
 .book_wapper
   /a#next_page_button
   /a#prev_page_button
@@ -33,5 +34,5 @@ a#auto href="#" auth="false" 自動:オフ
         .
           = image_tag(file.pict.url, :margin => 0, :padding => 0)
 #slider
-
+  
 = javascript_include_tag "booklet.js"

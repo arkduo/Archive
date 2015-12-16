@@ -1,8 +1,10 @@
 $(function() {
-  var $mybook     = $('#mybook');
-  var $bttn_next    = $('#next_page_button');
-  var $bttn_prev    = $('#prev_page_button');
-  var $loading    = $('#loading');
+  var $mybook = $('#mybook');
+  var $bttn_next = $('#next_page_button');
+  var $bttn_prev = $('#prev_page_button');
+  var $loading = $('#loading');
+  var $slider = $('#slider');
+  var $sliderval = $('#sliderval');
   var $mybook_images  = $mybook.find('img');
   var cnt_images    = $mybook_images.length;
   var loaded      = 0;
@@ -10,11 +12,23 @@ $(function() {
   //右開の場合とか。
   var startPage = $(".b-load div").size();
   
+  var w = 0;
   var h = 0;
   $(window).on('load resize', function(){
     // ウィンドウサイズに画像を合わせる
-    h = $(window).height() * 0.88;
-    $('img').attr('width', (h*1.3)/2);
+    w = $(window).width();
+    h = $(window).height();
+    //w = window.outerWidth;
+    //h = window.outerHeight;
+    if(w > h){
+      h = h*0.88;
+      w = h*1.5;
+    }else{
+      w = w*0.9;
+      h = w*0.77;
+    }
+    //h = $(window).height() * 0.88;
+    $('img').attr('width', w/2);
     $('img').attr('height', h);
 
     //preload all the images in the book,
@@ -27,13 +41,15 @@ $(function() {
         ++loaded;
         if(loaded == cnt_images % 10){
           $loading.hide();
-          $bttn_next.show();
-          $bttn_prev.show();
+          //$bttn_next.show();
+          //$bttn_prev.show();
+          $slider.show();
+          $sliderval.show();
           $mybook.show().booklet({
             name:               null,
             //width:              880,
             //height:             640,
-            width:              h * 1.3,
+            width:              w,
             height:             h,
             speed:              300,
             direction:          'RTL',
@@ -88,7 +104,7 @@ $(function() {
         }
       }).attr('src',source);
     });
-    $mybook.booklet("option", "width", (h*1.3));
+    $mybook.booklet("option", "width", w);
     $mybook.booklet("option", "height", h);
   
   });
@@ -96,7 +112,6 @@ $(function() {
   // 表紙の追加・削除
   $('#cover').click(function(e){
     var newPageHtml = "<div></div>";
-    $()
     e.preventDefault();
     if($(this).attr('auth') == "true"){
       $(this).text("表紙:なし");
@@ -179,15 +194,24 @@ $(function() {
   }, false);
 
   // スライダー 
-  $('#slider').slider({
+  var val = cnt_images - 1;
+  $slider.slider({
     min: 0,
-    max: (cnt_images-1),
+    max: val,
     step: 2,
-    value: (cnt_images-1),
+    value: val,
+    slide: function(e, ui) {
+      $sliderval.html(val-ui.value +"/"+ val);
+    },
+    create: function(e, ui) {
+      $sliderval.html(val-$(this).slider("value") +"/"+ val);
+    },
     change: function(e, ui) {
-      $mybook.booklet((cnt_images-1)-ui.value);
+      $sliderval.html(val-ui.value +"/"+ val);
+      $mybook.booklet(val-ui.value);
     },
   });
+
 });
 
 
