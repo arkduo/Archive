@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-  devise_for :users
+  devise_for :users, path_names: {
+    sign_up: ''
+  }
   resources :books, :except => [:new]
   resources :serials
   root :to => 'serials#index'
