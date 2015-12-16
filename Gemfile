@@ -44,6 +44,7 @@ group :development, :test do
 
   # スリム
   gem 'slim-rails'
+  gem 'html2slim'
   # レイアウト用
   gem 'twitter-bootswatch-rails', '~> 3.1.1'
   gem 'twitter-bootswatch-rails-helpers'
@@ -64,5 +65,9 @@ group :development, :test do
   gem 'touchpunch-rails'
   # IP制限
   gem 'alpaca'
+  # ユーザ管理
+  gem 'devise'
+  gem 'cancan'
+  gem 'rails_admin'
 end
 
