@@ -16,7 +16,7 @@ html
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.navbar-brand href="/" Manga Archive
+          a.navbar-brand href="/" Manga Archives
         .collapse.navbar-collapse
           p.navbar-text.pull-right
             - if user_signed_in?
@@ -29,6 +29,9 @@ html
               = link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'
             - else
               = link_to "Login", new_user_session_path, :class => 'navbar-link'
+            - if can? :manage, current_user
+              |  | 
+              = link_to "Admin", rails_admin_path, :class => 'navbar-link'
     - if notice
       p.alert.alert-success
         = notice

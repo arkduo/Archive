@@ -3,7 +3,8 @@
 
 whitelist:
   - 192.168.0.0/29
-  - 133.92.148.0/15
+  #- 133.92.148.0/15
 blacklist:
-  - 0.0.0.0
-default: deny
+  - 192.168.0.0/29
+#default: deny
+default: allow

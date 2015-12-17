@@ -69,5 +69,7 @@ group :development, :test do
   gem 'devise'
   gem 'cancan'
   gem 'rails_admin'
+  # ログの簡略化
+  gem 'quiet_assets'
 end
 
