@@ -71,5 +71,7 @@ group :development, :test do
   gem 'rails_admin'
   # ログの簡略化
   gem 'quiet_assets'
+  # File input
+  gem 'bootstrap-filestyle-rails'
 end
 

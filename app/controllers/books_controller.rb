@@ -51,10 +51,10 @@ class BooksController < ApplicationController
     `mkdir #{Rails.root}/decomp`
     if /zip$/ =~ @book.zip.path
       # ZIPファイルの解凍
-      `unzip -jo "#{@book.zip.path}" -d #{Dir.home}/muse/decomp`
+      `unzip -jo "#{@book.zip.path}" -d #{Rails.root}/decomp`
     else
       # RARファイルの解凍
-      `unrar e -y "#{@book.zip.path}" #{Dir.home}/muse/decomp`
+      `unrar e -y "#{@book.zip.path}" #{Rails.root}/decomp`
     end
     path = `find #{Rails.root}/decomp -type f -iname "*.jpg" -or -type f -iname "*.png" | sort -n`
     arr = path.split

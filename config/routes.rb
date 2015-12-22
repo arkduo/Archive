@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   devise_for :users, path_names: {
     sign_up: ''
   }
-  resources :books, :except => [:new]
-  resources :serials
+  resources :books, :except => [:new, :edit]
+  resources :serials, :except => [:edit]
   root :to => 'serials#index'
   get 'books/:id/new' => 'books#new', as:'new_book'
   get '/books/:id/thumb' => 'books#thumb', as: 'thumb_book'
