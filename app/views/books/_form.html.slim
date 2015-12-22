@@ -1,3 +1,5 @@
+= stylesheet_link_tag "form.css"
+
 = form_for(@book) do |f|
   - if @book.errors.any?
     #error_explanation
@@ -22,9 +24,9 @@
         = image_tag @book.thumb
     = f.label :zip
     br
-    = f.file_field :zip
+    = f.file_field :zip, :type => 'file', :class => 'filestyle'
     = f.hidden_field :zip_cache
     - @book.serial_id = @series.to_i
     = f.hidden_field :serial_id
   .actions
-    = f.submit
+    = f.submit :class => 'btn btn-primary'

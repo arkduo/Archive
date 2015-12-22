@@ -3,5 +3,7 @@ $("tr[data-link]").click(function(e) {
 });
 
 jQuery(function($) {
-  $('#sort').tablesorter();
+  $('#sort').tablesorter({
+    sortList: [[3,0]]
+  });
 });

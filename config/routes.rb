@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
-  resources :books, :except => [:new]
-  resources :serials
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  devise_for :users, path_names: {
+    sign_up: ''
+  }
+  resources :books, :except => [:new, :edit]
+  resources :serials, :except => [:edit]
   root :to => 'serials#index'
   get 'books/:id/new' => 'books#new', as:'new_book'
   get '/books/:id/thumb' => 'books#thumb', as: 'thumb_book'

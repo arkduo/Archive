@@ -5,16 +5,15 @@
 = stylesheet_link_tag "bootstrap-select.min.css"
 = stylesheet_link_tag "booklet.css"
 
-p#notice
-  = notice
 p
   strong
     | Title:
   = @book.title
-= link_to 'Edit', edit_book_path(@book)
-|  | 
-= link_to 'Destory', book_path(@book), method: :delete, data: { confirm: 'Are you sure?' }
-|  | 
+/= link_to 'Edit', edit_book_path(@book)
+/|  | 
+- if can? :manage, current_user
+  = link_to 'Destory', book_path(@book), method: :delete, data: { confirm: 'Are you sure?' }
+  |  | 
 = link_to 'Back', serial_path(@serial.id)
 |  | 
 a#cover href="#" auth="false" 表紙:なし
@@ -31,8 +30,8 @@ a#auto href="#" auth="false" 自動:オフ
   #mybook style="display: none"
     .b-load
       - @page.each do |file|
-        .
+        .page
           = image_tag(file.pict.url, :margin => 0, :padding => 0)
 #slider
-  
+
 = javascript_include_tag "booklet.js"

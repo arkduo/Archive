@@ -48,15 +48,15 @@ class BooksController < ApplicationController
 
     # アップロードされたファイルの解凍
     # 一時的に解凍しておくフォルダの生成
-    `mkdir #{Dir.home}/muse/decomp`
+    `mkdir #{Rails.root}/decomp`
     if /zip$/ =~ @book.zip.path
       # ZIPファイルの解凍
-      `unzip -jo "#{@book.zip.path}" -d #{Dir.home}/muse/decomp`
+      `unzip -jo "#{@book.zip.path}" -d #{Rails.root}/decomp`
     else
       # RARファイルの解凍
-      `unrar e -y "#{@book.zip.path}" #{Dir.home}/muse/decomp`
+      `unrar e -y "#{@book.zip.path}" #{Rails.root}/decomp`
     end
-    path = `find #{Dir.home}/muse/decomp -type f -iname "*.jpg" -or -type f -iname "*.png" | sort -n`
+    path = `find #{Rails.root}/decomp -type f -iname "*.jpg" -or -type f -iname "*.png" | sort -n`
     arr = path.split
     arr.sort_by do |f|
       f.scan(/[\d]+/).last
@@ -91,7 +91,7 @@ class BooksController < ApplicationController
         @page.save
       end
     end
-    `rm -rf #{Dir.home}/muse/decomp`
+    `rm -rf #{Rails.root}/decomp`
     @book.total = num
     @book.save
   end
@@ -109,12 +109,12 @@ class BooksController < ApplicationController
 #    count = 0
 #    @img = Book.where(:serial_id => @book.serial_id)
 #    @img.each do |t|
-#      urls << "#{Dir.home}/muse/public" + t.thumb
+#      urls << "#{Rails.root}/public" + t.thumb
 #      count += 1
 #    end
 #    # サムネが4枚分無い=>黒画像で代用
 #    while count < 4
-#      urls << "#{Dir.home}/muse/app/assets/images/thumb_black.jpg"
+#      urls << "#{Rails.root}/app/assets/images/thumb_black.jpg"
 #      count += 1
 #    end
 #
@@ -133,9 +133,9 @@ class BooksController < ApplicationController
 #      end
 #    end
 #
-#    `mkdir #{Dir.home}/muse/public/uploads/serial/#{@book.serial_id}`
+#    `mkdir #{Rails.root}/public/uploads/serial/#{@book.serial_id}`
 #    @serial = Serial.find_by(:id => @book.serial_id)
-#    @serial.thumb = tile.mosaic.write("#{Dir.home}/muse/public/uploads/serial/#{@book.serial_id}/thumb.jpg")
+#    @serial.thumb = tile.mosaic.write("#{Rails.root}/public/uploads/serial/#{@book.serial_id}/thumb.jpg")
 #    @serial.save
 
     # シリーズ用サムネ
