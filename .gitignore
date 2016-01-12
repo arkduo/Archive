@@ -20,3 +20,5 @@
 /decomp
 /public
 .gitignore
+
+/vendor/bundle

@@ -73,7 +73,7 @@ class BooksController < ApplicationController
 #        parts = Array.new()
 #        parts << img.crop(Magick::SouthEastGravity, img.columns/2, img.rows).write(name.first + "_1." + name.last) # 右ページ
 #        parts << img.crop(Magick::NorthWestGravity, img.columns/2, img.rows).write(name.first + "_2." + name.last) # 左ページ
-#        
+#
 #        parts.each do |part|
 #          @page = Page.new(:book_id => @book.id)
 #          File.open(part.filename) do |f|
@@ -105,25 +105,15 @@ class BooksController < ApplicationController
         name = img.filename.rpartition(".")
         p_right = img.crop(Magick::SouthEastGravity, img.columns/2, img.rows).write(name.first + "_1." + name.last).filename # 右ページ
         p_left = img.crop(Magick::NorthWestGravity, img.columns/2, img.rows).write(name.first + "_2." + name.last).filename # 左ページ
-        @pages << Page.new(:book_id => @book.id, :pict => File.open(p_right).read)
-        @pages << Page.new(:book_id => @book.id, :pict => File.open(p_left).read)
+        @book.pages.new(pict: File.open(p_right).read)
+        @book.pages.new(pict: File.open(p_left).read)
         num += 2
       else
         f = File.open(file)
-        pages << Page.new(:book_id => @book.id, :pict => f)
-        #File.open(file) do |f|
-          #pages << Page.new(:book_id => @book.id, :pict => f)
-        #end
-        #page = Page.new(:book_id => @book.id)
-        #File.open(file) do |f|
-        # page.pict = f
-        #end
-        #pages << page
+        @book.pages.new(pict: f)
         num += 1
       end
     end
-    Page.import pages, :validate => false
-    #binding.pry
     `rm -rf #{Rails.root}/decomp`
     @book.total = num
     @book.save
