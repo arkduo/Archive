@@ -64,6 +64,9 @@ gem 'rails_admin'
 gem 'quiet_assets'
 # File input
 gem 'bootstrap-filestyle-rails'
+# コーディングルールチェック
+gem 'rubocop'
+gem 'parser', '2.2.0.1'
 
 group :development, :test do
   gem 'binding_of_caller'
