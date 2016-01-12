@@ -63,38 +63,28 @@ class BooksController < ApplicationController
     end
     # 解凍したファイルをPageテーブルに保存
     num = 0
+
+    pages = []
     arr.each do |file|
       file = file.chomp
-
-      # 見開き2ページの場合は2分割
       img = Magick::Image.read(file).first
       if(img.columns > img.rows) # 横長の場合:２分割
         name = img.filename.rpartition(".")
-        parts = Array.new()
-        parts << img.crop(Magick::SouthEastGravity, img.columns/2, img.rows).write(name.first + "_1." + name.last) # 右ページ
-        parts << img.crop(Magick::NorthWestGravity, img.columns/2, img.rows).write(name.first + "_2." + name.last) # 左ページ
-        
-        parts.each do |part|
-          @page = Page.new(:book_id => @book.id)
-          File.open(part.filename) do |f|
-            num += 1
-            @page.pict = f
-          end
-          @page.save
-        end
-      else # 縦長の場合:そのまま登録
-        @page = Page.new(:book_id => @book.id)
-        File.open(file) do |f|
-          num += 1
-          @page.pict = f
-        end
-        @page.save
+        p_right = img.crop(Magick::SouthEastGravity, img.columns/2, img.rows).write(name.first + "_1." + name.last).filename # 右ページ
+        p_left = img.crop(Magick::NorthWestGravity, img.columns/2, img.rows).write(name.first + "_2." + name.last).filename # 左ページ
+        @book.pages.new(pict: File.open(p_right).read)
+        @book.pages.new(pict: File.open(p_left).read)
+        num += 2
+      else
+        f = File.open(file)
+        @book.pages.new(pict: f)
+        num += 1
       end
     end
     `rm -rf #{Rails.root}/decomp`
     @book.total = num
     @book.save
-  end
+ end
 
   def regist_thumb
     # サムネイルの登録
