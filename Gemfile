@@ -42,6 +42,7 @@ group :development, :test do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 
+  gem 'sprockets-rails', '2.3.3'
   # スリム
   gem 'slim-rails'
   gem 'html2slim'
@@ -73,5 +74,7 @@ group :development, :test do
   gem 'quiet_assets'
   # File input
   gem 'bootstrap-filestyle-rails'
+  # db登録高速化
+  gem 'activerecord-import'
 end
 
