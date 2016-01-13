@@ -36,8 +36,7 @@ class BooksController < ApplicationController
     @book = Book.new(book_params)
 
     respond_to do |format|
-      if @book.save
-        #format.html { redirect_to @book, notice: 'Book was successfully created.' }
+      if @book.save_zip
         format.html { redirect_to thumb_book_path(@book), notice: 'Book was successfully created.' }
         format.json { render :show, status: :created, location: @book }
       else
@@ -45,48 +44,7 @@ class BooksController < ApplicationController
         format.json { render json: @book.errors, status: :unprocessable_entity }
       end
     end
-
-    # アップロードされたファイルの解凍
-    # 一時的に解凍しておくフォルダの生成
-    `mkdir #{Rails.root}/decomp`
-    if /zip$/ =~ @book.zip.path
-      # ZIPファイルの解凍
-      `unzip -jo "#{@book.zip.path}" -d #{Rails.root}/decomp`
-    else
-      # RARファイルの解凍
-      `unrar e -y "#{@book.zip.path}" #{Rails.root}/decomp`
-    end
-    path = `find #{Rails.root}/decomp -type f -iname "*.jpg" -or -type f -iname "*.png" | sort -n`
-    arr = path.split
-    arr.sort_by do |f|
-      f.scan(/[\d]+/).last
-    end
-    # 解凍したファイルをPageテーブルに保存
-    num = 0
-
-    pages = []
-    arr.each do |file|
-      file = file.chomp
-      img = Magick::Image.read(file).first
-      if(img.columns > img.rows) # 横長の場合:２分割
-        name = img.filename.rpartition(".")
-        # 右ページ
-        p_right = img.crop(Magick::SouthEastGravity, img.columns / 2, img.rows).write(name.first + '_1.' + name.last).filename
-        # 左ページ
-        p_left = img.crop(Magick::NorthWestGravity, img.columns / 2, img.rows).write(name.first + '_2.' + name.last).filename
-        @book.pages.new(pict: File.open(p_right).read)
-        @book.pages.new(pict: File.open(p_left).read)
-        num += 2
-      else
-        f = File.open(file)
-        @book.pages.new(pict: f)
-        num += 1
-      end
-    end
-    `rm -rf #{Rails.root}/decomp`
-    @book.total = num
-    @book.save
- end
+  end
 
   def regist_thumb
     # サムネイルの登録
