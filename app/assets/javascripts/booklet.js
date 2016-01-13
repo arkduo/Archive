@@ -39,7 +39,7 @@ $(function() {
       var source  = $img.attr('src');
       $('<img/>').load(function(){
         ++loaded;
-        if(loaded == cnt_images % 10){
+        if(loaded >= cnt_images){
           $loading.hide();
           //$bttn_next.show();
           //$bttn_prev.show();
