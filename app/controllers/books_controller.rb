@@ -10,13 +10,13 @@ class BooksController < ApplicationController
   # GET /books/1
   # GET /books/1.json
   def show
-    @page = Page.where(:book_id => params[:id])
-    @serial = Serial.find_by(:id => @book.serial_id)
+    @page = Page.where(book_id: params[:id])
+    @serial = Serial.find_by(id: @book.serial_id)
   end
 
   def thumb
     @book = Book.find(params[:id])
-    @page = Page.where(:book_id => params[:id])
+    @page = Page.where(book_id: params[:id])
   end
 
   # GET /books/new
@@ -70,8 +70,10 @@ class BooksController < ApplicationController
       img = Magick::Image.read(file).first
       if(img.columns > img.rows) # 横長の場合:２分割
         name = img.filename.rpartition(".")
-        p_right = img.crop(Magick::SouthEastGravity, img.columns/2, img.rows).write(name.first + "_1." + name.last).filename # 右ページ
-        p_left = img.crop(Magick::NorthWestGravity, img.columns/2, img.rows).write(name.first + "_2." + name.last).filename # 左ページ
+        # 右ページ
+        p_right = img.crop(Magick::SouthEastGravity, img.columns / 2, img.rows).write(name.first + '_1.' + name.last).filename
+        # 左ページ
+        p_left = img.crop(Magick::NorthWestGravity, img.columns / 2, img.rows).write(name.first + '_2.' + name.last).filename
         @book.pages.new(pict: File.open(p_right).read)
         @book.pages.new(pict: File.open(p_left).read)
         num += 2
@@ -88,45 +90,10 @@ class BooksController < ApplicationController
 
   def regist_thumb
     # サムネイルの登録
-    @thumb = Page.find_by(:id => params[:thumb])
-    @book = Book.find_by(:id => @thumb.book_id)
+    @thumb = Page.find_by(id: params[:thumb])
+    @book = Book.find_by(id: @thumb.book_id)
     @book.thumb = @thumb.pict.thumb.url
     @book.save
-
-#    # シリーズ用サムネの作成
-#    # 4枚の画像から1枚のサムネを作る
-#    urls = Array.new
-#    count = 0
-#    @img = Book.where(:serial_id => @book.serial_id)
-#    @img.each do |t|
-#      urls << "#{Rails.root}/public" + t.thumb
-#      count += 1
-#    end
-#    # サムネが4枚分無い=>黒画像で代用
-#    while count < 4
-#      urls << "#{Rails.root}/app/assets/images/thumb_black.jpg"
-#      count += 1
-#    end
-#
-#    images = Magick::ImageList.new(*urls)
-#    tile = Magick::ImageList.new
-#    page = Magick::Rectangle.new(0,0,0,0)
-#    images.scene = 0
-#
-#    2.times do |i|
-#      2.times do |j|
-#        tile << images.scale(0.7)
-#        page.x = j * tile.columns
-#        page.y = i * tile.rows
-#        tile.page = page
-#        (images.scene += 1) rescue images.scene = 0
-#      end
-#    end
-#
-#    `mkdir #{Rails.root}/public/uploads/serial/#{@book.serial_id}`
-#    @serial = Serial.find_by(:id => @book.serial_id)
-#    @serial.thumb = tile.mosaic.write("#{Rails.root}/public/uploads/serial/#{@book.serial_id}/thumb.jpg")
-#    @serial.save
 
     # シリーズ用サムネ
     # 最新のBookのサムネを流用
