@@ -1,5 +1,12 @@
 h1
   = @serial.series
+#wrapper
+  #columns
+    -@books.each do |book|
+      .pin[data-link="#{book_path(book)}"]
+        = image_tag book.thumb
+        p
+          = book.title
 table#sort.table.table-striped.table-hover.tablesrter
   thead
     tr

@@ -5,6 +5,13 @@ h1
   i.icon-plus
 br
 br
+#wrapper
+  #columns
+    - @serials.each do |serial|
+      .pin[data-link="#{serial_path(serial)}"]
+        = image_tag serial.thumb
+        p
+          = serial.series
 table#sort.table.table-striped.table-hover.tablesorter
   thead
     tr
