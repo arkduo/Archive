@@ -273,6 +273,7 @@ DEPENDENCIES
   devise
   dotenv-rails
   execjs
+  font-awesome-rails
   html2slim
   jbuilder (~> 2.0)
   jquery-rails

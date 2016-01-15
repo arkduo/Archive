@@ -7,3 +7,5 @@ jQuery(function($) {
     sortList: [[3,0]]
   });
 });
+
+$("[data-toggle=tooltip]").tooltip()

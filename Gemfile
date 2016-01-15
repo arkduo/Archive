@@ -42,6 +42,7 @@ gem 'twitter-bootswatch-rails', '~> 3.1.1'
 gem 'twitter-bootswatch-rails-helpers'
 gem 'execjs'
 gem 'less-rails'
+gem 'font-awesome-rails'
 # アップロード・画像加工
 gem 'rmagick'
 gem 'carrierwave'
