@@ -16,8 +16,8 @@ class Book < ActiveRecord::Base
         p_right = img.crop(Magick::SouthEastGravity, img.columns / 2, img.rows).write(name.first + '_1.' + name.last).filename
         # 左ページ
         p_left = img.crop(Magick::NorthWestGravity, img.columns / 2, img.rows).write(name.first + '_2.' + name.last).filename
-        self.pages.new(pict: File.open(p_right).read)
-        self.pages.new(pict: File.open(p_left).read)
+        self.pages.new(pict: File.open(p_right))
+        self.pages.new(pict: File.open(p_left))
         num += 2
       else
         f = File.open(file)
