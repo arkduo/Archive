@@ -1,6 +1,6 @@
 h1
   | Manga Archives
-= link_to books_path, class: 'btn btn-info', title: 'あああ', data: { toggle: 'tooltip', placement: 'top' }
+= link_to books_path, class: 'btn btn-info'
   | Show ALL
 br
 br
@@ -27,7 +27,10 @@ table#sort.table.table-striped.table-hover.tablesorter
           = serial.volume
           | 巻
         td
-          = Book.find_by(:serial_id => serial.id).created_at.strftime('%Y年%m月%d日 %H:%M')
+          - if serial.volume.nil?
+            | 
+          - else
+            = Book.find_by(:serial_id => serial.id).created_at.strftime('%Y年%m月%d日 %H:%M')
           /= serial.created_at.strftime('%Y年%m月%d日 %H:%M')
         /td
           = link_to 'Show', serial

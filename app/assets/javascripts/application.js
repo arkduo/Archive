@@ -19,3 +19,4 @@
 //= require jquery-ui
 //= require jquery.ui.touch-punch
 //= require bootstrap-filestyle
+//= require bootstrap/bootstrap-tooltip

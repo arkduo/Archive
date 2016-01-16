@@ -8,4 +8,6 @@ jQuery(function($) {
   });
 });
 
-$("[data-toggle=tooltip]").tooltip()
+$(function(){
+  $('a[rel~="tooltip"]').tooltip();
+})

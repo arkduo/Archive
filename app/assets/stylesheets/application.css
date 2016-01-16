@@ -19,4 +19,5 @@
  *= require jquery-ui
  *= require font-awesome
  *= require custom.css
+ *= require bootstrap/bootstrap-tooltip
  */
