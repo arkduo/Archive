@@ -1,4 +1,4 @@
-$("tr[data-link]").click(function(e) {
+$("[data-link]").click(function(e) {
   window.location = $(this).data("link");
 });
 
