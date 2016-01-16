@@ -1,16 +1,12 @@
-= stylesheet_link_tag "tile.css"
-
 h3
   | choose thunmbnail
 p
   strong
     | Title:
   = @book.title
-  /- if @book.image?
-  /  = image_tag @book.image.url
-. style="width:100%"
-  - @page.each_with_index do |file, i|
-    .Tile
-      = link_to image_tag(file.pict.thumb.url), regist_thumb_path(@book.id, file.id), {:class => "thumbnail"}
-    - break if i == 9
-
+#wrapper
+  #columns
+    - @page.each_with_index do |file, i|
+      .pin
+        = link_to image_tag(file.pict.thumb.url), regist_thumb_path(@book.id, file.id), { class: 'thumbnail' }
+      - break if i == 9

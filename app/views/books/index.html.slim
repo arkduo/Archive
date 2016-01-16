@@ -1,5 +1,5 @@
 h1
-  | Manga Archives
+  | All Books List
 #wrapper
   #columns
     - @books.each do |book|
@@ -7,34 +7,5 @@ h1
         = image_tag book.thumb
         p
           = book.title
-table#sort.table.table-striped.table-hover.tablesorter
-  thead
-    tr
-      th.col-md-1.col-sm-1
-        | Thumbnail
-      th.col-md-4.col-sm-3
-        | Title
-      th.col-md-1.col-sm-1
-        | Genre
-      th.col-md-3.col-sm-2
-        | Register at
-      /th[colspan="3"]
-  tbody
-    - @books.each do |book|
-      tr[data-link="#{book_path(book)}"]
-        td
-          = image_tag book.thumb
-        td
-          = book.title
-        td
-          = book.genre
-        td
-          = book.created_at.strftime('%Y年%m月%d日 %H:%M')
-        /td
-          = link_to 'Show', book
-        /td
-          = link_to 'Edit', edit_book_path(book)
-        /td
-          = link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' }
 br
 = link_to 'Back', serials_path

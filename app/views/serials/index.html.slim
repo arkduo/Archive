@@ -1,9 +1,7 @@
 h1
-  | Manga Archives
+  | Series List
 = link_to books_path, :class => 'btn btn-info' do
-  | Show ALL
-  i.icon-plus
-br
+  | Show All
 br
 #wrapper
   #columns
@@ -12,36 +10,5 @@ br
         = image_tag serial.thumb
         p
           = serial.series
-table#sort.table.table-striped.table-hover.tablesorter
-  thead
-    tr
-      th.col-md-1.col-sm-1
-        | Thumbnail
-      th.col-md-4.col-sm-3
-        | Series
-      th.col-md-1.col-sm-1
-        | Volume
-      th.col-md-3.col-sm-2
-        | Register at
-  tbody
-    - @serials.each do |serial|
-      tr[data-link="#{serial_path(serial)}"]
-        td
-          = image_tag(serial.thumb)
-        td
-          = serial.series
-        td
-          | 全
-          = serial.volume
-          | 巻
-        td
-          = Book.find_by(:serial_id => serial.id).created_at.strftime('%Y年%m月%d日 %H:%M')
-          /= serial.created_at.strftime('%Y年%m月%d日 %H:%M')
-        /td
-          = link_to 'Show', serial
-        /td
-          = link_to 'Edit', edit_serial_path(serial)
-        /td
-          = link_to 'Destroy', serial, method: :delete, data: { confirm: 'Are you sure?' }
 br
 = link_to 'New Series', new_serial_path

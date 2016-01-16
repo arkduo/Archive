@@ -8,7 +8,7 @@ class PictUploader < CarrierWave::Uploader::Base
   end
 
   version :thumb do
-    process resize_to_fit: [100, 100]
+    process resize_to_fit: [140, 200]
   end
 
   def extension_white_list

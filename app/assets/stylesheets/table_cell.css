@@ -1,7 +1,7 @@
 #wrapper {
     width: 90%;
-    max-width: 1100px;
-    min-width: 800px;
+    max-width: 1500px;
+    min-width: 1100px;
     margin: 50px auto;
 }
  
@@ -9,10 +9,10 @@
     -webkit-column-count: 6;
     -webkit-column-gap: 10px;
     -webkit-column-fill: auto;
-    -moz-column-count: 3;
+    -moz-column-count: 6;
     -moz-column-gap: 10px;
     -moz-column-fill: auto;
-    column-count: 3;
+    column-count: 6;
     column-gap: 15px;
     column-fill: auto;
 }
@@ -39,15 +39,15 @@
  
 .pin img {
     /*width: 100%;*/
-    width: 100px;
-    height: 100px;
+    width: 140px;
+    height: 200px;
     border-bottom: 1px solid #ccc;
     padding-bottom: 15px;
     margin-bottom: 5px;
 }
  
 .pin p {
-    width: 100px;
+    width: 140px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
