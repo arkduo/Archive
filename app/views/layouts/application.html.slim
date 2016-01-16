@@ -21,18 +21,22 @@ html
         .collapse.navbar-collapse
           p.navbar-text.pull-right
             - if user_signed_in?
-              | Logged in as 
-              strong
+              /| Logged in as 
+              /strong
                 = current_user.account
-              |  
-              = link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link'
-              |  | 
-              = link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'
+              | &nbsp;&nbsp;&nbsp;&nbsp;
+              = link_to edit_user_registration_path, class: 'navbar-link', rel: 'tooltip', data: { placement: 'bottom' }, title: 'edit profile'
+                = fa_icon 'user lg'
+              | &nbsp;&nbsp;&nbsp;&nbsp;
+              = link_to destroy_user_session_path, method: :delete, class: 'navbar-link', rel: 'tooltip', data: { placement: 'bottom' }, title: 'sign out'
+                = fa_icon 'sign-out lg'
             - else
-              = link_to "Login", new_user_session_path, :class => 'navbar-link'
+              = link_to new_user_session_path, class: 'navbar-link', rel: 'tooltip', data: { placement: 'bottom'}, title: 'sign in'
+                = fa_icon 'sign-in lg'
             - if can? :manage, current_user
-              |  | 
-              = link_to "Admin", rails_admin_path, :class => 'navbar-link'
+              | &nbsp;&nbsp;&nbsp;&nbsp;
+              = link_to rails_admin_path, class: 'navbar-link', rel: 'tooltip', data: { placement: 'bottom' }, title: 'show databases'
+                = fa_icon 'edit lg'
     - if notice
       p.alert.alert-success
         = notice

@@ -7,3 +7,7 @@ jQuery(function($) {
     sortList: [[3,0]]
   });
 });
+
+$(function(){
+  $('a[rel~="tooltip"]').tooltip();
+})
