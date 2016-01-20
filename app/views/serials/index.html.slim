@@ -1,8 +1,11 @@
 h1
   | Series List
-= link_to books_path, :class => 'btn btn-info' do
-  | Show All
-br
+= link_to books_path, class: 'btn btn-info'
+  = fa_icon 'th'
+  | &nbsp;Show All
+= link_to new_serial_path, class: 'btn btn-success'
+  = fa_icon 'plus'
+  | &nbsp;New Series
 #wrapper
   #columns
     - @serials.each do |serial|
@@ -10,5 +13,5 @@ br
         = image_tag serial.thumb
         p
           = serial.series
-br
-= link_to 'New Series', new_serial_path
+          span.badge.info
+            = serial.volume

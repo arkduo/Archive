@@ -1,6 +1,9 @@
 h1
   | Series : 
   = @serial.series
+= link_to new_book_path(@serial.id), class: 'btn btn-success'
+  = fa_icon 'book'
+  | &nbsp;New Book
 #wrapper
   #columns
     -@books.each do |book|
@@ -8,7 +11,3 @@ h1
         = image_tag book.thumb
         p
           = book.title
-br
-= link_to 'New Book', new_book_path(@serial.id)
-| | 
-= link_to 'Back', serials_path

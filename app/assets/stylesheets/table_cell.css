@@ -54,6 +54,11 @@
     font: 12px/18px Arial, sans-serif;
     color: #FFF;
     margin: 0;
+    text-align: left;
+}
+
+.pin span.info {
+    float: right;
 }
 
 .pin:hover {
